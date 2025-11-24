@@ -1,4 +1,4 @@
-# Wander in Britain 🌿
+# Wander in Britain
 
 **Wander in Britain** is a React application that showcases cafés and antique shops across the UK.  
 It features multilingual support (English and Japanese), allowing users to easily switch languages.
