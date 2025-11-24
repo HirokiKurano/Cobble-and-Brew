@@ -1,38 +1,274 @@
-.App {
+/* -------------------
+   全体の背景とフォント
+------------------- */
+body {
+  font-family: 'Merriweather', 'Noto Serif JP', serif;
+  background-color: #f7f6f5;
+  margin: 0;
+  padding: 0;
+}
+
+/* -------------------
+   ヘッダー
+------------------- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 30px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+h1 {
+  font-family: 'Merriweather', 'Noto Serif JP', serif;
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0;
+}
+
+/* -------------------
+   ナビゲーション
+------------------- */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  padding: 4px 14px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  font-size: 1.4rem;
+  font-family: 'Merriweather', 'Noto Serif JP', serif;
+}
+
+nav a:hover {
+  background-color: #e3d5ca;
+}
+
+/* -------------------
+   言語切り替えボタン
+------------------- */
+.lang-switch button {
+  padding: 5px 8px;
+  margin-left: 2px;
+  border-radius: 4px;
+  border: 1px solid #0babef;
+  background-color: #0babef;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  font-family: 'Merriweather', 'Noto Serif JP', serif;
+}
+
+.lang-switch button:hover {
+  background-color: #e3d5ca;
+}
+
+/* -------------------
+   Homeページ中央揃え
+------------------- */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  min-height: 10vh;
+  padding: 18px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.home-container h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #333;
+  font-family: 'Merriweather', 'Noto Serif JP', serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.home-container p {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  text-align: center;
+  color: #555;
+  margin-top: 0;
+  font-family: 'Merriweather', 'Noto Serif JP', serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* -------------------
+   カードデザイン
+------------------- */
+.card,
+.cafe-card,
+.article-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: 'Merriweather', 'Noto Serif JP', serif;
+}
+
+.card:hover,
+.cafe-card:hover,
+.article-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+}
+
+.card strong,
+.cafe-card strong,
+.article-card strong {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.card p,
+.cafe-card p,
+.article-card p {
+  margin: 5px 0 0 0;
+  color: #555;
+}
+
+/* -------------------
+   記事カード画像
+------------------- */
+.article-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+/* -------------------
+   記事詳細ページ画像
+------------------- */
+.article-detail-image {
+  width: 100%;
+  max-width: 600px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* -------------------
+   フォーム
+------------------- */
+input, button {
+  padding: 8px 12px;
+  margin: 5px 0 10px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  width: 100%;
+  max-width: 480px;
+  box-sizing: border-box;
+  font-family: 'Merriweather', 'Noto Serif JP', serif;
+}
+
+input:focus {
+  outline: none;
+  border-color: #7f5af0;
+  box-shadow: 0 0 5px rgba(127,90,240,0.3);
+}
+
+button {
+  background-color: #5ab9f0;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #20a5f3;
+}
+
+/* -------------------
+   Cafes / Antiques / Article中央寄せ
+------------------- */
+.cafes-page,
+.cafe-detail-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Merriweather', 'Noto Serif JP', serif;
+}
+
+/* -------------------
+   Articles専用
+------------------- */
+.articles-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* -------------------
+   Moreリンク
+------------------- */
+.more-link {
+  display: inline-block;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #5ab9f0;
+  text-decoration: none;
+  font-family: 'Merriweather', 'Noto Serif JP', serif;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.more-link:hover {
+  color: #20a5f3;
+}
+
+/* -------------------
+   メディアクエリ（スマホ対応）
+------------------- */
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
   }
-  to {
-    transform: rotate(360deg);
+
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav a {
+    margin: 6px 0;
+  }
+
+  .lang-switch {
+    margin-top: 6px;
+  }
+
+  .cafes-page,
+  .cafe-detail-container {
+    padding: 10px;
+  }
+
+  .article-image {
+    height: 140px;
+  }
+
+  .article-detail-image {
+    height: 200px;
   }
 }

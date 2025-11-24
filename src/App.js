@@ -1,24 +1,266 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import "./App.css";
+import "./i18n";
 
-function App() {
+// -------------------
+// 画像インポート
+// -------------------
+import londonCafe from "./assets/articles/london-cafe.jpg";
+import manchesterVintage from "./assets/articles/manchester-vintage.jpg";
+import scotlandCoffee from "./assets/articles/scotland-coffee.jpg";
+import bathAntique from "./assets/articles/bath-antique.jpg";
+import birminghamCafe from "./assets/articles/birmingham-cafe.jpg";
+
+// -------------------
+// 初期データ
+// -------------------
+const initialCafes = [
+  { id: 1, name: "Attendant", location: "London", note: "元公衆トイレを改装したカフェ" },
+  { id: 2, name: "Faculty", location: "Birmingham", note: "a charming café known for its exceptional coffee and pastries" },
+  { id: 3, name: "Tamper Coffee", location: "Sheffield", note: "ニュージーランド風ブランチが人気" },
+  { id: 4, name: "200 Degrees", location: "Birmingham", note: "おいしいコーヒーと落ち着いた広々とした空間" },
+  { id: 5, name: "The Steamie", location: "Glasgow", note: "地元焙煎と手作りスコーンが評判" },
+];
+
+const initialAntiques = [
+  { id: 1, name: "Old Town Treasures", location: "Oxford", note: "Vintage maps and brass items." },
+  { id: 2, name: "Retro Revival", location: "Manchester", note: "Mid-century furniture heaven." },
+  { id: 3, name: "Curio Corner", location: "Canterbury", note: "Filled with quirky British finds." },
+  { id: 4, name: "Timeless Trinkets", location: "Edinburgh", note: "Small shop with charming curiosities." },
+  { id: 5, name: "Antique Alley", location: "Bath", note: "Perfect for vintage postcards and jewelry." },
+];
+
+const initialArticles = [
+  { id: 1, title: "A Day in London Cafés", summary: "Exploring the hidden cafés in London streets.", image: londonCafe },
+  { id: 2, title: "Vintage Finds in Manchester", summary: "Discovering retro treasures in Manchester.", image: manchesterVintage },
+  { id: 3, title: "Scottish Coffee Culture", summary: "A look at Glasgow's artisanal coffee shops.", image: scotlandCoffee },
+  { id: 4, title: "Bath Antique Walk", summary: "Strolling through Bath's charming antique alleys.", image: bathAntique },
+  { id: 5, title: "Birmingham’s Hidden Cafés", summary: "Secret spots for coffee lovers.", image: birminghamCafe },
+];
+
+// -------------------
+// Home
+// -------------------
+function Home() {
+  const { t } = useTranslation();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="home-container">
+      <h2>{t("home_welcome")}</h2>
+      <p>{t("home_intro")}</p>
+
+      <h3>{t("latest_articles")}</h3>
+      <div className="articles-preview">
+        {initialArticles.slice(0, 4).map(article => (
+          <div key={article.id} className="card article-card">
+            <img src={article.image} alt={article.title} className="article-image" />
+            <strong>{article.title}</strong>
+            <p>{article.summary}</p>
+            <Link to={`/articles/${article.id}`}>{t("read_more")} →</Link>
+          </div>
+        ))}
+      </div>
+      <Link to="/articles" className="more-link">{t("view_all_articles")}</Link>
     </div>
+  );
+}
+
+// -------------------
+// About
+// -------------------
+function About() {
+  const { t } = useTranslation();
+  return (
+    <div className="home-container">
+      <h2>{t("about_title")}</h2>
+      <p>{t("about_text")}</p>
+    </div>
+  );
+}
+
+// -------------------
+// Cafes
+// -------------------
+function Cafes() {
+  const { t } = useTranslation();
+  const [cafes, setCafes] = useState(initialCafes);
+  const [newCafe, setNewCafe] = useState({ name: "", location: "", note: "" });
+
+  const addCafe = () => {
+    if (!newCafe.name || !newCafe.location) return;
+    setCafes([...cafes, { id: cafes.length + 1, ...newCafe }]);
+    setNewCafe({ name: "", location: "", note: "" });
+  };
+
+  return (
+    <div className="cafes-page">
+      <h2>{t("cafes_title")}</h2>
+      {cafes.map(cafe => (
+        <Link key={cafe.id} to={`/cafes/${cafe.id}`} className="card cafe-card">
+          <strong>{cafe.name}</strong> — {cafe.location}
+          <p>{cafe.note}</p>
+        </Link>
+      ))}
+
+      <h3>{t("add_new_cafe")}</h3>
+      <input type="text" placeholder={t("name")} value={newCafe.name} onChange={e => setNewCafe({...newCafe, name: e.target.value})} />
+      <input type="text" placeholder={t("location")} value={newCafe.location} onChange={e => setNewCafe({...newCafe, location: e.target.value})} />
+      <input type="text" placeholder={t("note")} value={newCafe.note} onChange={e => setNewCafe({...newCafe, note: e.target.value})} />
+      <button onClick={addCafe}>{t("add_cafe")}</button>
+    </div>
+  );
+}
+
+// -------------------
+// CafeDetail
+// -------------------
+function CafeDetail() {
+  const { t } = useTranslation();
+  const { id } = useParams();
+  const cafe = initialCafes.find(c => c.id === parseInt(id));
+  if (!cafe) return <p>{t("article_not_found")}</p>;
+
+  return (
+    <div className="cafe-detail-container">
+      <h2>{cafe.name}</h2>
+      <p>{cafe.location}</p>
+      <p>{cafe.note}</p>
+      <Link to="/cafes">← {t("back_to_articles")}</Link>
+    </div>
+  );
+}
+
+// -------------------
+// Antiques
+// -------------------
+function Antiques() {
+  const { t } = useTranslation();
+  const [antiques, setAntiques] = useState(initialAntiques);
+  const [newAntique, setNewAntique] = useState({ name: "", location: "", note: "" });
+
+  const addAntique = () => {
+    if (!newAntique.name || !newAntique.location) return;
+    setAntiques([...antiques, { id: antiques.length + 1, ...newAntique }]);
+    setNewAntique({ name: "", location: "", note: "" });
+  };
+
+  return (
+    <div className="cafes-page">
+      <h2>{t("antiques_title")}</h2>
+      {antiques.map(shop => (
+        <Link key={shop.id} to={`/antiques/${shop.id}`} className="card cafe-card">
+          <strong>{shop.name}</strong> — {shop.location}
+          <p>{shop.note}</p>
+        </Link>
+      ))}
+
+      <h3>{t("add_new_antique")}</h3>
+      <input type="text" placeholder={t("name")} value={newAntique.name} onChange={e => setNewAntique({...newAntique, name: e.target.value})} />
+      <input type="text" placeholder={t("location")} value={newAntique.location} onChange={e => setNewAntique({...newAntique, location: e.target.value})} />
+      <input type="text" placeholder={t("note")} value={newAntique.note} onChange={e => setNewAntique({...newAntique, note: e.target.value})} />
+      <button onClick={addAntique}>{t("add_antique")}</button>
+    </div>
+  );
+}
+
+// -------------------
+// AntiqueDetail
+// -------------------
+function AntiqueDetail() {
+  const { t } = useTranslation();
+  const { id } = useParams();
+  const shop = initialAntiques.find(a => a.id === parseInt(id));
+  if (!shop) return <p>{t("article_not_found")}</p>;
+
+  return (
+    <div className="cafe-detail-container">
+      <h2>{shop.name}</h2>
+      <p>{shop.location}</p>
+      <p>{shop.note}</p>
+      <Link to="/antiques">← {t("back_to_articles")}</Link>
+    </div>
+  );
+}
+
+// -------------------
+// Articles
+// -------------------
+function Articles() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="cafes-page">
+      <h2>{t("articles_list")}</h2>
+      {initialArticles.map(article => (
+        <div key={article.id} className="card article-card">
+          <img src={article.image} alt={article.title} className="article-image" />
+          <strong>{article.title}</strong>
+          <p>{article.summary}</p>
+          <Link to={`/articles/${article.id}`}>{t("read_more")} →</Link>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// -------------------
+// ArticleDetail
+// -------------------
+function ArticleDetail() {
+  const { t } = useTranslation();
+  const { id } = useParams();
+  const article = initialArticles.find(a => a.id === parseInt(id));
+  if (!article) return <p>{t("article_not_found")}</p>;
+
+  return (
+    <div className="cafe-detail-container">
+      <img src={article.image} alt={article.title} className="article-detail-image" />
+      <h2>{article.title}</h2>
+      <p>{article.summary}</p>
+      <p>{t("article_detail_placeholder")}</p>
+      <Link to="/articles">← {t("back_to_articles")}</Link>
+    </div>
+  );
+}
+
+// -------------------
+// App
+// -------------------
+function App() {
+  const { t, i18n } = useTranslation();
+
+  return (
+    <Router>
+      <div>
+        <header className="header">
+          <h1>{t("title")}</h1>
+          <nav>
+            <Link to="/">{t("home")}</Link>
+            <Link to="/articles">{t("articles")}</Link>
+            <Link to="/cafes">{t("cafes")}</Link>
+            <Link to="/antiques">{t("antiques")}</Link>
+            <Link to="/about">{t("about")}</Link>
+          </nav>
+          <div className="lang-switch">
+            <button className={i18n.language === "en" ? "active" : ""} onClick={() => i18n.changeLanguage("en")}>EN</button>
+            <button className={i18n.language === "ja" ? "active" : ""} onClick={() => i18n.changeLanguage("ja")}>日本語</button>
+          </div>
+        </header>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/cafes" element={<Cafes />} />
+          <Route path="/cafes/:id" element={<CafeDetail />} />
+          <Route path="/antiques" element={<Antiques />} />
+          <Route path="/antiques/:id" element={<AntiqueDetail />} />
+          <Route path="/articles" element={<Articles />} />
+          <Route path="/articles/:id" element={<ArticleDetail />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

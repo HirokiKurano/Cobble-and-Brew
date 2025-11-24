@@ -1,0 +1,23 @@
+{
+  "home": "Home",
+  "about": "About",
+  "cafes": "Cafés",
+  "antiques": "Antiques",
+  "home_welcome": "Welcome to Cobble & Brew",
+  "home_intro": "Sharing insights on spots and hidden gems across the UK.",
+  "latest_articles": "Latest Articles",
+  "read_more": "Read More",
+  "view_all_articles": "View All Articles",
+  "articles_list": "Articles",
+  "back_to_articles": "Back to Articles",
+  "article_not_found": "Article not found",
+  "article_detail_placeholder": "Detailed content for this article goes here.",
+  "delete": "Delete",
+  "add": "Add",
+  "addCafe": "Add a new café",
+  "addAntique": "Add a new antique shop",
+  "name": "Name",
+  "location": "Location",
+  "note": "Note",
+  "aboutText": "This site showcases hidden gems across the UK."
+}

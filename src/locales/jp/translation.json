@@ -1,0 +1,23 @@
+{
+  "home": "ホーム",
+  "about": "概要",
+  "cafes": "カフェ",
+  "antiques": "アンティーク",
+  "home_welcome": "Welcome to Cobble & Brew",
+  "home_intro": "イギリス各地のスポットや隠れた名所を紹介。",
+  "latest_articles": "最新の記事",
+  "read_more": "続きを読む",
+  "view_all_articles": "もっと見る",
+  "articles_list": "記事一覧",
+  "back_to_articles": "記事一覧に戻る",
+  "article_not_found": "記事が見つかりません",
+  "article_detail_placeholder": "ここに記事の詳細コンテンツが入ります。",
+  "delete": "削除",
+  "add": "追加",
+  "addCafe": "新しいカフェを追加",
+  "addAntique": "新しいアンティークショップを追加",
+  "name": "名前",
+  "location": "場所",
+  "note": "メモ",
+  "aboutText": "このサイトではイギリス各地の隠れた名所を紹介しています。"
+}

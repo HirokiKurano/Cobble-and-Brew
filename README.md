@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# Wander in Britain 🌿
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Wander in Britain** is a React application that showcases cafés and antique shops across the UK.  
+It features multilingual support (English and Japanese), allowing users to easily switch languages.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Demo
 
-### `npm start`
+- Home page with an introduction
+- Café listing page
+- Antique shop listing page
+- About page
+- Language switch buttons (EN / JP) in the top-right corner
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Table of Contents
 
-### `npm test`
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Setup](#setup)
+- [Folder Structure](#folder-structure)
+- [Future Improvements](#future-improvements)
+- [License](#license)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Display lists of cafés and antique shops
+- Add and delete items (state is stored in-browser)
+- Multilingual support using i18next
+- Responsive design (mobile & desktop)
+- Antique-style UI with elegant fonts and card layouts
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Tech Stack
 
-### `npm run eject`
+- **Frontend:** React.js (React Router v6)
+- **Styling:** CSS with responsive design
+- **Internationalization:** i18next + react-i18next
+- **Development Tool:** Create React App
+- **Package Manager:** npm
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Setup
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone the repository
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+git clone <repository-url>
+cd wander-in-britain
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Install dependencies
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+npm install
+npm install i18next react-i18next
 
-### Code Splitting
+Start the development server
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+npm start
 
-### Analyzing the Bundle Size
+Open http://localhost:3000
+ in your browser to view the app
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+ Folder Structure (main files)
+wander-in-britain/
+│
+├─ src/
+│   ├─ App.js           # Main component
+│   ├─ App.css          # Styles
+│   ├─ i18n.js          # i18next initialization
+│   ├─ locales/
+│   │   ├─ en.json      # English translations
+│   │   └─ jp.json      # Japanese translations
+│   └─ index.js
+├─ package.json
+└─ README.md
 
-### Advanced Configuration
+Future Improvements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Connect to a database (e.g., MongoDB, Firebase) to persist cafés and antique shop data
 
-### Deployment
+Add user authentication and commenting features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Implement search and filtering functionality
 
-### `npm run build` fails to minify
+Fine-tune UI design and add theme switching (light/dark mode)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+License
+
+This project is licensed under the MIT License.
