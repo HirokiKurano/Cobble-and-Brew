@@ -48,7 +48,7 @@ function Home() {
   const { t } = useTranslation();
 
   return (
-    <div className="home-container">
+    <div className="home-container page-shell">
       <h2>{t("home_welcome")}</h2>
       <p>{t("home_intro")}</p>
 
@@ -71,12 +71,67 @@ function Home() {
 // -------------------
 // About
 // -------------------
+function uniquePlaces(items) {
+  return [...new Set(items.map((item) => item.location))];
+}
+
+function ExploreAside({ places, extraLinks }) {
+  const { t } = useTranslation();
+
+  return (
+    <aside className="page-aside">
+      {places?.length > 0 && (
+        <section className="aside-card">
+          <h3>{t("featured_places")}</h3>
+          <ul className="place-list">
+            {places.map((place) => (
+              <li key={place}>{place}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+      <section className="aside-card">
+        <h3>{t("explore_more")}</h3>
+        <div className="aside-links">
+          {extraLinks.map((link) => (
+            <Link key={link.to} to={link.to}>
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      </section>
+    </aside>
+  );
+}
+
 function About() {
   const { t } = useTranslation();
   return (
-    <div className="home-container">
-      <h2>{t("about_title")}</h2>
-      <p>{t("about_text")}</p>
+    <div className="page-shell">
+      <header className="page-heading">
+        <h2>{t("about_title")}</h2>
+      </header>
+      <div className="about-layout">
+        <article className="about-copy">
+          <p>{t("about_text")}</p>
+          <p>{t("page_intro_articles")}</p>
+        </article>
+        <div className="about-highlights">
+          <h3>{t("about_aside_title")}</h3>
+          <Link to="/cafes" className="highlight-card">
+            <strong>{t("cafes")}</strong>
+            <p>{t("about_highlight_cafes")}</p>
+          </Link>
+          <Link to="/antiques" className="highlight-card">
+            <strong>{t("antiques")}</strong>
+            <p>{t("about_highlight_antiques")}</p>
+          </Link>
+          <Link to="/articles" className="highlight-card">
+            <strong>{t("articles")}</strong>
+            <p>{t("about_highlight_articles")}</p>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
@@ -96,20 +151,48 @@ function Cafes() {
   };
 
   return (
-    <div className="cafes-page">
-      <h2>{t("cafes_title")}</h2>
-      {cafes.map(cafe => (
-        <Link key={cafe.id} to={`/cafes/${cafe.id}`} className="card cafe-card">
-          <strong>{cafe.name}</strong> — {cafe.location}
-          <p>{cafe.note}</p>
-        </Link>
-      ))}
-
-      <h3>{t("add_new_cafe")}</h3>
-      <input type="text" placeholder={t("name")} value={newCafe.name} onChange={e => setNewCafe({...newCafe, name: e.target.value})} />
-      <input type="text" placeholder={t("location")} value={newCafe.location} onChange={e => setNewCafe({...newCafe, location: e.target.value})} />
-      <input type="text" placeholder={t("note")} value={newCafe.note} onChange={e => setNewCafe({...newCafe, note: e.target.value})} />
-      <button onClick={addCafe}>{t("add_cafe")}</button>
+    <div className="page-shell">
+      <header className="page-heading">
+        <h2>{t("cafes_title")}</h2>
+        <p>{t("page_intro_cafes")}</p>
+      </header>
+      <div className="page-with-aside">
+        <div>
+          <div className="card-grid">
+            {cafes.map((cafe) => (
+              <Link key={cafe.id} to={`/cafes/${cafe.id}`} className="card cafe-card">
+                <span className="place-chip">{cafe.location}</span>
+                <strong>{cafe.name}</strong>
+                <p>{cafe.note}</p>
+              </Link>
+            ))}
+          </div>
+          <form
+            className="form-panel"
+            onSubmit={(e) => {
+              e.preventDefault();
+              addCafe();
+            }}
+          >
+            <h3>{t("add_new_cafe")}</h3>
+            <p className="form-hint">{t("add_panel_hint")}</p>
+            <div className="form-row">
+              <input type="text" placeholder={t("name")} value={newCafe.name} onChange={(e) => setNewCafe({ ...newCafe, name: e.target.value })} />
+              <input type="text" placeholder={t("location")} value={newCafe.location} onChange={(e) => setNewCafe({ ...newCafe, location: e.target.value })} />
+              <input type="text" placeholder={t("note")} value={newCafe.note} onChange={(e) => setNewCafe({ ...newCafe, note: e.target.value })} />
+              <button type="submit">{t("add_cafe")}</button>
+            </div>
+          </form>
+        </div>
+        <ExploreAside
+          places={uniquePlaces(cafes)}
+          extraLinks={[
+            { to: "/articles", label: t("articles") },
+            { to: "/antiques", label: t("antiques") },
+            { to: "/about", label: t("about") },
+          ]}
+        />
+      </div>
     </div>
   );
 }
@@ -124,7 +207,7 @@ function CafeDetail() {
   if (!cafe) return <p>{t("cafe_not_found")}</p>;
 
   return (
-    <div className="cafe-detail-container">
+    <div className="page-shell cafe-detail-container">
       <h2>{cafe.name}</h2>
       <p>{cafe.location}</p>
       <p>{cafe.note}</p>
@@ -148,20 +231,48 @@ function Antiques() {
   };
 
   return (
-    <div className="cafes-page">
-      <h2>{t("antiques_title")}</h2>
-      {antiques.map(shop => (
-        <Link key={shop.id} to={`/antiques/${shop.id}`} className="card cafe-card">
-          <strong>{shop.name}</strong> — {shop.location}
-          <p>{shop.note}</p>
-        </Link>
-      ))}
-
-      <h3>{t("add_new_antique")}</h3>
-      <input type="text" placeholder={t("name")} value={newAntique.name} onChange={e => setNewAntique({...newAntique, name: e.target.value})} />
-      <input type="text" placeholder={t("location")} value={newAntique.location} onChange={e => setNewAntique({...newAntique, location: e.target.value})} />
-      <input type="text" placeholder={t("note")} value={newAntique.note} onChange={e => setNewAntique({...newAntique, note: e.target.value})} />
-      <button onClick={addAntique}>{t("add_antique")}</button>
+    <div className="page-shell">
+      <header className="page-heading">
+        <h2>{t("antiques_title")}</h2>
+        <p>{t("page_intro_antiques")}</p>
+      </header>
+      <div className="page-with-aside">
+        <div>
+          <div className="card-grid">
+            {antiques.map((shop) => (
+              <Link key={shop.id} to={`/antiques/${shop.id}`} className="card cafe-card">
+                <span className="place-chip">{shop.location}</span>
+                <strong>{shop.name}</strong>
+                <p>{shop.note}</p>
+              </Link>
+            ))}
+          </div>
+          <form
+            className="form-panel"
+            onSubmit={(e) => {
+              e.preventDefault();
+              addAntique();
+            }}
+          >
+            <h3>{t("add_new_antique")}</h3>
+            <p className="form-hint">{t("add_panel_hint")}</p>
+            <div className="form-row">
+              <input type="text" placeholder={t("name")} value={newAntique.name} onChange={(e) => setNewAntique({ ...newAntique, name: e.target.value })} />
+              <input type="text" placeholder={t("location")} value={newAntique.location} onChange={(e) => setNewAntique({ ...newAntique, location: e.target.value })} />
+              <input type="text" placeholder={t("note")} value={newAntique.note} onChange={(e) => setNewAntique({ ...newAntique, note: e.target.value })} />
+              <button type="submit">{t("add_antique")}</button>
+            </div>
+          </form>
+        </div>
+        <ExploreAside
+          places={uniquePlaces(antiques)}
+          extraLinks={[
+            { to: "/cafes", label: t("cafes") },
+            { to: "/articles", label: t("articles") },
+            { to: "/about", label: t("about") },
+          ]}
+        />
+      </div>
     </div>
   );
 }
@@ -176,7 +287,7 @@ function AntiqueDetail() {
   if (!shop) return <p>{t("antique_not_found")}</p>;
 
   return (
-    <div className="cafe-detail-container">
+    <div className="page-shell cafe-detail-container">
       <h2>{shop.name}</h2>
       <p>{shop.location}</p>
       <p>{shop.note}</p>
@@ -192,16 +303,30 @@ function Articles() {
   const { t } = useTranslation();
 
   return (
-    <div className="cafes-page">
-      <h2>{t("articles_list")}</h2>
-      {initialArticles.map(article => (
-        <div key={article.id} className="card article-card">
-          <img src={article.image} alt={article.title} className="article-image" />
-          <strong>{article.title}</strong>
-          <p>{article.summary}</p>
-          <Link to={`/articles/${article.id}`}>{t("read_more")} →</Link>
+    <div className="page-shell">
+      <header className="page-heading">
+        <h2>{t("articles_list")}</h2>
+        <p>{t("page_intro_articles")}</p>
+      </header>
+      <div className="page-with-aside">
+        <div className="card-grid">
+          {initialArticles.map((article) => (
+            <div key={article.id} className="card article-card">
+              <img src={article.image} alt={article.title} className="article-image" />
+              <strong>{article.title}</strong>
+              <p>{article.summary}</p>
+              <Link to={`/articles/${article.id}`}>{t("read_more")} →</Link>
+            </div>
+          ))}
         </div>
-      ))}
+        <ExploreAside
+          extraLinks={[
+            { to: "/cafes", label: t("cafes") },
+            { to: "/antiques", label: t("antiques") },
+            { to: "/about", label: t("about") },
+          ]}
+        />
+      </div>
     </div>
   );
 }
@@ -216,7 +341,7 @@ function ArticleDetail() {
   if (!article) return <p>{t("article_not_found")}</p>;
 
   return (
-    <div className="cafe-detail-container">
+    <div className="page-shell cafe-detail-container">
       <img src={article.image} alt={article.title} className="article-detail-image" />
       <h2>{article.title}</h2>
       <p>{article.summary}</p>
