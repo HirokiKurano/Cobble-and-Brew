@@ -70,6 +70,12 @@ nav a:hover {
   background-color: #e3d5ca;
 }
 
+.lang-switch button.active {
+  background-color: #086c9a;
+  color: #fff;
+  border-color: #086c9a;
+}
+
 /* -------------------
    Homeページ中央揃え
 ------------------- */

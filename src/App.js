@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useParams } from "react-r
 import { useTranslation } from "react-i18next";
 import "./App.css";
 import "./i18n";
+import Navbar from "./components/Navbar";
 
 // -------------------
 // 画像インポート
@@ -120,14 +121,14 @@ function CafeDetail() {
   const { t } = useTranslation();
   const { id } = useParams();
   const cafe = initialCafes.find(c => c.id === parseInt(id));
-  if (!cafe) return <p>{t("article_not_found")}</p>;
+  if (!cafe) return <p>{t("cafe_not_found")}</p>;
 
   return (
     <div className="cafe-detail-container">
       <h2>{cafe.name}</h2>
       <p>{cafe.location}</p>
       <p>{cafe.note}</p>
-      <Link to="/cafes">← {t("back_to_articles")}</Link>
+      <Link to="/cafes">← {t("back_to_cafes")}</Link>
     </div>
   );
 }
@@ -172,14 +173,14 @@ function AntiqueDetail() {
   const { t } = useTranslation();
   const { id } = useParams();
   const shop = initialAntiques.find(a => a.id === parseInt(id));
-  if (!shop) return <p>{t("article_not_found")}</p>;
+  if (!shop) return <p>{t("antique_not_found")}</p>;
 
   return (
     <div className="cafe-detail-container">
       <h2>{shop.name}</h2>
       <p>{shop.location}</p>
       <p>{shop.note}</p>
-      <Link to="/antiques">← {t("back_to_articles")}</Link>
+      <Link to="/antiques">← {t("back_to_antiques")}</Link>
     </div>
   );
 }
@@ -229,25 +230,10 @@ function ArticleDetail() {
 // App
 // -------------------
 function App() {
-  const { t, i18n } = useTranslation();
-
   return (
     <Router>
       <div>
-        <header className="header">
-          <h1>{t("title")}</h1>
-          <nav>
-            <Link to="/">{t("home")}</Link>
-            <Link to="/articles">{t("articles")}</Link>
-            <Link to="/cafes">{t("cafes")}</Link>
-            <Link to="/antiques">{t("antiques")}</Link>
-            <Link to="/about">{t("about")}</Link>
-          </nav>
-          <div className="lang-switch">
-            <button className={i18n.language === "en" ? "active" : ""} onClick={() => i18n.changeLanguage("en")}>EN</button>
-            <button className={i18n.language === "ja" ? "active" : ""} onClick={() => i18n.changeLanguage("ja")}>日本語</button>
-          </div>
-        </header>
+        <Navbar />
 
         <Routes>
           <Route path="/" element={<Home />} />
