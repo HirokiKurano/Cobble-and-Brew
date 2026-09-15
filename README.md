@@ -1,17 +1,18 @@
 # Cobble & Brew
 
-**Cobble & Brew** is a React application that showcases cafés and antique shops across the UK.  
-It features multilingual support (English and Japanese), allowing users to easily switch languages.
+**Cobble & Brew** is a React application that showcases cafés and antique shops across the UK.
+It features multilingual support (English and Japanese), allowing users to switch languages from the header.
 
 ---
 
 ## Demo
 
-- Home page with an introduction
-- Café listing page
-- Antique shop listing page
+- Home page with an introduction and latest articles
+- Café listing and detail pages
+- Antique shop listing and detail pages
+- Articles listing and detail pages
 - About page
-- Language switch buttons (EN / JP) in the top-right corner
+- Language switch buttons (EN / 日本語) in the header
 
 ---
 
@@ -29,16 +30,16 @@ It features multilingual support (English and Japanese), allowing users to easil
 ## Features
 
 - Display lists of cafés and antique shops
-- Add and delete items (state is stored in-browser)
+- Add items on the café and antique pages (state is stored in the browser)
 - Multilingual support using i18next
-- Responsive design (mobile & desktop)
-- Antique-style UI with elegant fonts and card layouts
+- Responsive design (mobile and desktop)
+- Antique-style UI with serif fonts and card layouts
 
 ---
 
 ## Tech Stack
 
-- **Frontend:** React.js (React Router v6)
+- **Frontend:** React.js (React Router)
 - **Styling:** CSS with responsive design
 - **Internationalization:** i18next + react-i18next
 - **Development Tool:** Create React App
@@ -51,48 +52,60 @@ It features multilingual support (English and Japanese), allowing users to easil
 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd wander-in-britain
+git clone https://github.com/HirokiKurano/Cobble-and-Brew.git
+cd Cobble-and-Brew
+```
 
+2. Install dependencies
 
-Install dependencies
-
+```bash
 npm install
-npm install i18next react-i18next
+```
 
-Start the development server
+3. Start the development server
 
+```bash
 npm start
+```
 
-Open http://localhost:3000
- in your browser to view the app
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the app.
 
+---
 
+## Folder Structure
 
- Folder Structure (main files)
-wander-in-britain/
+```
+Cobble-and-Brew/
 │
+├─ public/
+│   └─ index.html
 ├─ src/
-│   ├─ App.js           # Main component
-│   ├─ App.css          # Styles
-│   ├─ i18n.js          # i18next initialization
+│   ├─ App.js                 # Routes and page components
+│   ├─ App.css                # Styles
+│   ├─ i18n.js                # i18next initialization
+│   ├─ components/
+│   │   └─ Navbar.js          # Header, navigation, language switch
 │   ├─ locales/
-│   │   ├─ en.json      # English translations
-│   │   └─ jp.json      # Japanese translations
+│   │   ├─ en/translation.json
+│   │   └─ ja/translation.json
+│   ├─ pages/                 # Alternate page drafts (not wired into App yet)
+│   ├─ assets/articles/       # Article images
 │   └─ index.js
 ├─ package.json
 └─ README.md
+```
 
-Future Improvements
+---
 
-Connect to a database (e.g., MongoDB, Firebase) to persist cafés and antique shop data
+## Future Improvements
 
-Add user authentication and commenting features
+- Connect to a database (e.g. MongoDB, Firebase) to persist cafés and antique shop data
+- Add user authentication and commenting features
+- Implement search and filtering functionality
+- Fine-tune UI design and add theme switching (light/dark mode)
 
-Implement search and filtering functionality
+---
 
-Fine-tune UI design and add theme switching (light/dark mode)
-
-License
+## License
 
 This project is licensed under the MIT License.
