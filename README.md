@@ -3,6 +3,24 @@
 **Cobble & Brew** is a React application that showcases cafés and antique shops across the UK.
 It features multilingual support (English and Japanese), allowing users to switch languages from the header.
 
+## Apps in this repository
+
+This repository also includes two other Cursor apps so they stay visible after re-login:
+
+| Folder | App | Standalone repo |
+| --- | --- | --- |
+| `src/` (this project) | **Cobble & Brew** — UK cafés and antique shops | [Cobble-and-Brew](https://github.com/HirokiKurano/Cobble-and-Brew) |
+| [`echo/`](./echo) | **ECHO** — office inquiry congestion dashboard | [echo](https://github.com/HirokiKurano/echo) |
+| [`spark/`](./spark) | **Spark** — fast todo capture | [spark](https://github.com/HirokiKurano/spark) |
+
+```bash
+# ECHO
+cd echo && npm install && npm run dev
+
+# Spark
+cd spark && npm install && npm run dev
+```
+
 ---
 
 ## Demo
@@ -18,6 +36,7 @@ It features multilingual support (English and Japanese), allowing users to switc
 
 ## Table of Contents
 
+- [Apps in this repository](#apps-in-this-repository)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Setup](#setup)
@@ -77,6 +96,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 ```
 Cobble-and-Brew/
 │
+├─ echo/                  # ECHO office inquiry dashboard
+├─ spark/                 # Spark todo app
 ├─ public/
 │   └─ index.html
 ├─ src/
